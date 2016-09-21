@@ -10,4 +10,4 @@ Some formats supported by LinuxFCM include
   - RAR
   - and more
 	
-LinuxFCM combines compression tools to provide the ability to harness their cabibilities all in one spot. 
+LinuxFCM combines compression tools to provide the ability to harness their capabilities all in one spot. 
