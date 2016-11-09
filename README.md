@@ -1,6 +1,6 @@
 # LinuxFCM
 
-Project for COMP3000 (Operating Systems)
+Project(s) for COMP3000 (Operating Systems)
 
 LinuxFCM is a tool that can be used to extract and compress files into various different compression formats.
 
