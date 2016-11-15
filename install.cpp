@@ -18,14 +18,24 @@ int main() {
 	printf("Copying ex into actions folder\n...\n...\n...\n");
 	system("cp ex ../.local/share/file-manager/actions/");
 	printf("ex is copied");
-	
+
+	printf("Installing unzip..\n");
+	system("sudo apt-get install unzip");
+
+	printf("Installing rar..\n");
+	system("sudo apt-get install rar");
+
+	printf("Installing unrar\n");
+	system("sudo apt-get install unrar");
+
+
 	Install inst;
-	
-	printf("\nCreating compression.desktop\n...\n...\n..."); 
+
+	printf("\nCreating compression.desktop\n...\n...\n...");
 	string content = inst.createString();
 	string path = inst.findActionsFolder();
 	string file = ("../.local/share/file-manager/actions/compression.desktop");
-	
+
 	fstream optionsFile;
 	optionsFile.open(file.c_str(), fstream::out | fstream::trunc);
 	optionsFile << content;
@@ -34,9 +44,9 @@ int main() {
 }
 
 /*
-	createString() creates a string that is meant to populate the file 
+	createString() creates a string that is meant to populate the file
 	meant for nautilus-actions to use to display the additional options
-	in the context/dropdown menu. 
+	in the context/dropdown menu.
 */
 string Install::createString() {
 
@@ -60,18 +70,17 @@ string Install::createString() {
 	str += "ExecutionMode=DisplayOutput";
 
 	return str;
-	
+
 }
 
 /*
 	findActionsFolder() returns a string with the path to the actions folder.
-	
+
 	MUST CHANGE
 		- Must search or take an input rather than being hardcoded in.
-		- Should it be relative or from root? 
+		- Should it be relative or from root?
 */
 string Install::findActionsFolder() {
 	string str = "../.local/share/file-manager/actions/";
 	return str;
 }
-
