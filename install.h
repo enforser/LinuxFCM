@@ -1,11 +1,11 @@
 #ifndef INSTALL
 #define INSTALL
-class Install 
+class Install
 {
 	public:
 		void   mainfunc();
-		string createString();
+		string createAction();
+		string createMenu();
 		string findActionsFolder();
-}; 
+};
 #endif
-

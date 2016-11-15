@@ -31,34 +31,39 @@ int main() {
 
 	Install inst;
 
-	printf("\nCreating compression.desktop\n...\n...\n...");
-	string content = inst.createString();
 	string path = inst.findActionsFolder();
-	string file = ("../.local/share/file-manager/actions/compression.desktop");
-
 	fstream optionsFile;
-	optionsFile.open(file.c_str(), fstream::out | fstream::trunc);
-	optionsFile << content;
+
+	printf("\nCreating compress.desktop\n...\n...\n...");
+	string compressAction = inst.createAction();
+	string actionFile = ("../.local/share/file-manager/actions/compress.desktop");
+
+	optionsFile.open(actionFile.c_str(), fstream::out | fstream::trunc);
+	optionsFile << compressAction;
 	optionsFile.close();
-	printf("\ncompression.desktop created!\n");
+	printf("\ncompress.desktop created!\n");
+
+	printf("\nCreating compressionmanager.desktop\n...\n...\n...");
+	string compressMenu = inst.createMenu();
+	string menuFile = ("../.local/share/file-manager/actions/compressionmanager.desktop");
+
+	optionsFile.open(menuFile.c_str(), fstream::out | fstream::trunc);
+	optionsFile << compressMenu;
+	optionsFile.close();
 }
 
-/*
-	createString() creates a string that is meant to populate the file
-	meant for nautilus-actions to use to display the additional options
-	in the context/dropdown menu.
-*/
-string Install::createString() {
+// Create a string for NA to use to create an action
+string Install::createAction() {
 
 	string str = "";
 	str += "[Desktop Entry]\n";
 	str += "Type=Action\n";
-	str += "ToolbarLabel[en_CA]=CompressionManager\n";
-	str += "ToolbarLabel[en]=CompressionManager\n";
-	str += "ToolbarLabel[C]=CompressionManager\n";
-	str += "Name[en_CA]=CompressionManager\n";
-	str += "Name[en]=CompressionManager\n";
-	str += "Name[C]=CompressionManager\n";
+	str += "ToolbarLabel[en_CA]=Compress\n";
+	str += "ToolbarLabel[en]=Compress\n";
+	str += "ToolbarLabel[C]=Compress\n";
+	str += "Name[en_CA]=Compress\n";
+	str += "Name[en]=Compress\n";
+	str += "Name[C]=Compress\n";
 	str += "Profiles=profile-zero;\n";
 	str += "\n";
 	str += "[X-Action-Profile profile-zero]\n";
@@ -68,6 +73,21 @@ string Install::createString() {
 	str += "Name[C]=./ex\n";
 	str += "Exec=./ex\n";
 	str += "ExecutionMode=DisplayOutput";
+
+	return str;
+
+}
+
+// Create a string for NA to use to create a menu to store actions
+string Install::createMenu() {
+
+	string str = "";
+	str += "[Desktop Entry]\n";
+	str += "Type=Menu\n";
+	str += "Name[en_CA]=CompressionManager\n";
+	str += "Name[en]=CompressionManager\n";
+	str += "Name[C]=CompressionManager\n";
+	str += "ItemsList=compress;\n";
 
 	return str;
 
