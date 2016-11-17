@@ -119,11 +119,12 @@ string Install::createOption(string name, string action) {
 	str += "\nProfiles=profile-zero;\n";
 	str += "\n";
 	str += "[X-Action-Profile profile-zero]\n";
-	str += "Path=/home/student/NautilusFCM/\n";
+	str += "Path=/home/student/LinuxFCM/\n";
 	str += "Name[en_CA]="; str += action;
 	str += "\nName[en]=";str += action;
 	str += "\nName[C]=";str += action;
 	str += "\nExec=";str += action;
+	str += " %"; str += "U";
 	str += "\nExecutionMode=DisplayOutput";
 
 	return str;
