@@ -41,30 +41,10 @@ int main() {
 	fstream optionsFile;
 
 //STARTS ADDING SUBMENU OPTION .desktop FILES
-	printf("\nCreating compress.desktop\n...\n...\n...");
-	string compressAction = inst.createOption("Compress", "./ex");
-	string option1 = inst.createOption("Option1", "ls");
-	string option2 = inst.createOption("Option2", "./install");
 
-	string compressActionFile = ("../.local/share/file-manager/actions/compress.desktop");
-	string option1ActionFile = ("../.local/share/file-manager/actions/option1.desktop");
-	string option2ActionFile = ("../.local/share/file-manager/actions/option2.desktop");
-	
-	optionsFile.open(compressActionFile.c_str(), fstream::out | fstream::trunc);
-	optionsFile << compressAction;
-	optionsFile.close();
-	printf("\ncompress.desktop created!\n");
-
-	optionsFile.open(option1ActionFile.c_str(), fstream::out | fstream::trunc);
-	optionsFile << option1;
-	optionsFile.close();
-	printf("\noption1.desktop created!\n");
-
-	optionsFile.open(option2ActionFile.c_str(), fstream::out | fstream::trunc);
-	optionsFile << option2;
-	optionsFile.close();
-	printf("\noption2.desktop created!\n");
-//ENDS
+	inst.addOption("Compress", "./ex", "compress");
+	inst.addOption("Option1", "./install", "option1");
+	inst.addOption("Option2", "ls", "option2");
 
 //BEGIN ADDING MAIN MENU .desktop FILE
 	printf("\nCreating compressionmanager.desktop\n...\n...\n...");
@@ -76,6 +56,26 @@ int main() {
 	optionsFile.close();
 //ENDS
 
+}
+
+//Takes info needed for new sub-menu option and adds it
+//  Note: Must still add the options "name" to itemList in createMenu()
+void Install::addOption(string name, string action, string filename) {
+	//sets .desktop filename
+	filename = filename + ".desktop";
+	//gets the text to be added to the file
+	string optionText = createOption(name, action);
+	//gets the fullpath of the file
+	string actionFile = (findActionsFolder() + filename);
+
+	//open stream
+	fstream optionsFile;
+
+	optionsFile.open(actionFile.c_str(), fstream::out | fstream::trunc);
+	optionsFile << optionText;
+	optionsFile.close();
+	printf("%s", filename.c_str());
+	printf(" was created successfully!\n");
 }
 
 /*
