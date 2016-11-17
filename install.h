@@ -7,5 +7,6 @@ class Install
 		string createAction();
 		string createMenu();
 		string findActionsFolder();
+		string createOption(string, string);
 };
 #endif
