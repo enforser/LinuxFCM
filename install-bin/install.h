@@ -8,7 +8,7 @@ class Install
 		string createAction();
 		string createMenu();
 		string findActionsFolder();
-		string createOption(string, string);
-		void addOption(string, string, string);
+		string createOption(string, string, string);
+		void addOption(string, string, string, string);
 };
 #endif

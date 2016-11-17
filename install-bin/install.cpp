@@ -4,13 +4,33 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <fstream>
-#include <string>
+#include <string.h>
+#include <unistd.h>
 
 using namespace std;
 
 #include "install.h"
 
 int main() {
+	
+	//curent working directory path
+	
+	char cwdpath[256];
+
+	getcwd(cwdpath, 255);
+	strcat(cwdpath, "/");
+	
+	char inspath[256];
+	char scrpath[256];
+
+	strncpy(inspath, cwdpath, sizeof(cwdpath));
+	strncpy(scrpath, cwdpath, sizeof(cwdpath));
+
+	string installPath = strcat(inspath, "install-bin/");
+	string scriptsPath = strcat(scrpath, "scripts/");
+
+	printf("Found Paths:\n%s\n%s\n%s\n", cwdpath, installPath.c_str(), scriptsPath.c_str());
+
 	//installs nautilus-actions
 	system("sudo apt-get install nautilus-actions");
 	printf("\nNAUTILUS-ACTIONS INSTALL SUCCESS\n");
@@ -42,9 +62,9 @@ int main() {
 
 //STARTS ADDING SUBMENU OPTION .desktop FILES
 
-	inst.addOption("Compress", "./ex", "compress");
-	inst.addOption("Option1", "./install", "option1");
-	inst.addOption("Option2", "ls", "option2");
+	inst.addOption("Compress", "./ex", "compress", scriptsPath);
+	inst.addOption("Option1", "echo", "option1", scriptsPath);
+	inst.addOption("Option2", "ls ../", "option2", scriptsPath);
 
 //BEGIN ADDING MAIN MENU .desktop FILE
 	printf("\nCreating compressionmanager.desktop\n...\n...\n...");
@@ -60,11 +80,11 @@ int main() {
 
 //Takes info needed for new sub-menu option and adds it
 //  Note: Must still add the options "name" to itemList in createMenu()
-void Install::addOption(string name, string action, string filename) {
+void Install::addOption(string name, string action, string filename, string path) {
 	//sets .desktop filename
 	filename = filename + ".desktop";
 	//gets the text to be added to the file
-	string optionText = createOption(name, action);
+	string optionText = createOption(name, action, path);
 	//gets the fullpath of the file
 	string actionFile = (findActionsFolder() + filename);
 
@@ -105,7 +125,7 @@ string Install::createAction() {
 
 }
 */
-string Install::createOption(string name, string action) {
+string Install::createOption(string name, string action, string path) {
 
 	string str = "";
 	str += "[Desktop Entry]\n";
@@ -119,8 +139,8 @@ string Install::createOption(string name, string action) {
 	str += "\nProfiles=profile-zero;\n";
 	str += "\n";
 	str += "[X-Action-Profile profile-zero]\n";
-	str += "Path=/home/student/LinuxFCM/\n";
-	str += "Name[en_CA]="; str += action;
+	str += "Path="; str += path;
+	str += "\nName[en_CA]="; str += action;
 	str += "\nName[en]=";str += action;
 	str += "\nName[C]=";str += action;
 	str += "\nExec=";str += action;
@@ -156,6 +176,12 @@ string Install::createMenu() {
 		- Should it be relative or from root?
 */
 string Install::findActionsFolder() {
-	string str = "../.local/share/file-manager/actions/";
-	return str;
+	
+	string homeDir = getenv("HOME");
+	
+
+	homeDir +=  "/.local/share/file-manager/actions/";
+
+	printf("\n%s\n", homeDir.c_str());
+	return homeDir;
 }
