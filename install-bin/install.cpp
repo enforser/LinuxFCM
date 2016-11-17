@@ -28,6 +28,12 @@ int main() {
 	printf("Installing unrar\n");
 	system("sudo apt-get install unrar");
 
+	//Read www.nongnu.org/atool for more info
+	//Will allow us to use the same command structure for different compression methods
+	//Example "apack -e (zip or rar or tar.gz) filename(s)"
+	printf("Installing atool\n");
+	system("sudo apt-get install atool");
+
 
 	Install inst;
 
