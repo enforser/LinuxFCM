@@ -1,7 +1,7 @@
 #ifndef INSTALL
-#define INSTALL
+#define INSTALL 
 
-class Install
+class Install 
 {
 	public:
 		void   mainfunc();

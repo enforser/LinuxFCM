@@ -12,14 +12,14 @@ using namespace std;
 #include "install.h"
 
 int main() {
-
+	
 	//curent working directory path
-
+	
 	char cwdpath[256];
 
 	getcwd(cwdpath, 255);
 	strcat(cwdpath, "/");
-
+	
 	char inspath[256];
 	char scrpath[256];
 
@@ -32,8 +32,6 @@ int main() {
 	printf("Found Paths:\n%s\n%s\n%s\n", cwdpath, installPath.c_str(), scriptsPath.c_str());
 
 	//installs nautilus-actions
-	system("sudo apt-get remove nautilus-actions");
-
 	system("sudo apt-get install nautilus-actions");
 	printf("\nNAUTILUS-ACTIONS INSTALL SUCCESS\n");
 
@@ -63,11 +61,10 @@ int main() {
 	fstream optionsFile;
 
 //BEGIN ADDING MAIN MENU .desktop FILE
-
+	
 	inst.addMenu("Compress Manager", "submenu1;submenu2;", "compressionmanager");
 	inst.addMenu("submenu1", "option1;", "submenu1");
 	inst.addMenu("submenu2", "option2;compress;", "submenu2");
-	
 //ENDS
 
 	inst.addOption("option2", "echo", "option2", scriptsPath);
@@ -169,9 +166,9 @@ string Install::createMenu(string name, string options) {
 	findActionsFolder() returns a string with the path to the actions folder
 */
 string Install::findActionsFolder() {
-
+	
 	string homeDir = getenv("HOME");
-
+	
 
 	homeDir +=  "/.local/share/file-manager/actions/";
 
