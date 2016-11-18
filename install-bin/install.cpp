@@ -67,13 +67,10 @@ int main() {
 	inst.addOption("Option2", "ls ../", "option2", scriptsPath);
 
 //BEGIN ADDING MAIN MENU .desktop FILE
-	printf("\nCreating compressionmanager.desktop\n...\n...\n...");
-	string compressMenu = inst.createMenu();
-	string menuFile = ("../.local/share/file-manager/actions/compressionmanager.desktop");
-
-	optionsFile.open(menuFile.c_str(), fstream::out | fstream::trunc);
-	optionsFile << compressMenu;
-	optionsFile.close();
+	
+	inst.addMenu("submenu1", "compress;option2;", "submenu1");
+	inst.addMenu("submenu2", "option1;", "submenu2");
+	inst.addMenu("Compress Manager", "submenu1;submenu2;", "compressionmanager");
 //ENDS
 
 }
@@ -98,33 +95,29 @@ void Install::addOption(string name, string action, string filename, string path
 	printf(" was created successfully!\n");
 }
 
-/*
-// Create a string for NA to use to create an action
-string Install::createAction() {
+//Takes info needed for new sub-menu option and adds it
+//  Note: Must still add the options "name" to itemList in createMenu()
+void Install::addMenu(string name, string options, string filename) {
+	//sets .desktop filename
+	filename = filename + ".desktop";
+	//gets the text to be added to the file
+	string optionText = createMenu(name, options);
+	//gets the fullpath of the file
+	string actionFile = (findActionsFolder() + filename);
 
-	string str = "";
-	str += "[Desktop Entry]\n";
-	str += "Type=Action\n";
-	str += "ToolbarLabel[en_CA]=Compress\n";
-	str += "ToolbarLabel[en]=Compress\n";
-	str += "ToolbarLabel[C]=Compress\n";
-	str += "Name[en_CA]=Compress\n";
-	str += "Name[en]=Compress\n";
-	str += "Name[C]=Compress\n";
-	str += "Profiles=profile-zero;\n";
-	str += "\n";
-	str += "[X-Action-Profile profile-zero]\n";
-	str += "Path=/home/student/NautilusFCM/\n";
-	str += "Name[en_CA]=./ex\n";
-	str += "Name[en]=./ex\n";
-	str += "Name[C]=./ex\n";
-	str += "Exec=./ex\n";
-	str += "ExecutionMode=DisplayOutput";
+	//open stream
+	fstream optionsFile;
 
-	return str;
-
+	optionsFile.open(actionFile.c_str(), fstream::out | fstream::trunc);
+	optionsFile << optionText;
+	optionsFile.close();
+	printf("%s", filename.c_str());
+	printf(" was created successfully!\n");
 }
-*/
+
+
+
+//Creates the string to be outputted to an action .desktop file
 string Install::createOption(string name, string action, string path) {
 
 	string str = "";
@@ -152,28 +145,26 @@ string Install::createOption(string name, string action, string path) {
 
 
 // Create a string for NA to use to create a menu to store actions
-string Install::createMenu() {
+string Install::createMenu(string name, string options) {
 
 	string str = "";
 	str += "[Desktop Entry]\n";
 	str += "Type=Menu\n";
-	str += "Name[en_CA]=CompressionManager\n";
-	str += "Name[en]=CompressionManager\n";
-	str += "Name[C]=CompressionManager\n";
+	str += "Name[en_CA]="; str += name;
+	str += "\nName[en]="; str += name;
+	str += "\nName[C]="; str += name;
 
 	//LIST OF ALL OPTION FILES, MUST BE EDITED WHEN REMOVING/ADDING OPTIONS TO SUBMENU
-	str += "ItemsList=compress;option1;option2;\n";
+	str += "\nItemsList=";
+	str += options;
+	str += "\n";
 
 	return str;
 
 }
 
 /*
-	findActionsFolder() returns a string with the path to the actions folder.
-
-	MUST CHANGE
-		- Must search or take an input rather than being hardcoded in.
-		- Should it be relative or from root?
+	findActionsFolder() returns a string with the path to the actions folder
 */
 string Install::findActionsFolder() {
 	

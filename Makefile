@@ -1,12 +1,12 @@
-install: install-bin/install.o program.o
+install: install-bin/install.o scripts/program.o
 	g++  -o install install-bin/install.o
-	g++  -o ex program.o
+	g++  -o scripts/ex scripts/program.o
 
-intall/install.o: install-bin/install.cpp install-bin/install.h
+install.o: install-bin/install.cpp install-bin/install.h
 	g++  -c install-bin/install.cpp
 
-program.o: program.cpp
-	g++  -c program.cpp
+program.o: scripts/program.cpp
+	g++  -c scripts/program.cpp
 
 clean:
-	rm -f install-bin/install.o program.o install ex
+	rm -f install-bin/install.o scripts/program.o install scripts/ex
