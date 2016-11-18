@@ -32,6 +32,8 @@ int main() {
 	printf("Found Paths:\n%s\n%s\n%s\n", cwdpath, installPath.c_str(), scriptsPath.c_str());
 
 	//installs nautilus-actions
+	system("sudo apt-get remove nautilus-actions");
+
 	system("sudo apt-get install nautilus-actions");
 	printf("\nNAUTILUS-ACTIONS INSTALL SUCCESS\n");
 
@@ -62,15 +64,15 @@ int main() {
 
 //STARTS ADDING SUBMENU OPTION .desktop FILES
 
-	inst.addOption("Compress", "./ex", "compress", scriptsPath);
 	inst.addOption("Option1", "echo", "option1", scriptsPath);
 	inst.addOption("Option2", "ls ../", "option2", scriptsPath);
+	inst.addOption("Compress", "./ex", "compress", scriptsPath);
 
 //BEGIN ADDING MAIN MENU .desktop FILE
 
-	inst.addMenu("submenu1", "compress;option2;", "submenu1");
-	inst.addMenu("submenu2", "option1;", "submenu2");
 	inst.addMenu("Compress Manager", "submenu1;submenu2;", "compressionmanager");
+	inst.addMenu("submenu1", "option1;option2;", "submenu1");
+	inst.addMenu("submenu2", "compress;", "submenu2");
 //ENDS
 
 }
