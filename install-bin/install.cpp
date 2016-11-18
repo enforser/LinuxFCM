@@ -61,16 +61,15 @@ int main() {
 	fstream optionsFile;
 
 //BEGIN ADDING MAIN MENU .desktop FILE
+
+	inst.addMenu("Compress Manager", "sub2;sub1;", "compressionmanager");
+	inst.addMenu("sub1", "opt2;comp;", "sub2");
+	inst.addMenu("sub2", "opt1;", "sub1");
+
 	
-	inst.addMenu("Compress Manager", "submenu1;submenu2;", "compressionmanager");
-	inst.addMenu("submenu1", "option1;", "submenu1");
-	inst.addMenu("submenu2", "option2;compress;", "submenu2");
-//ENDS
-
-	inst.addOption("option2", "echo", "option2", scriptsPath);
-	inst.addOption("option1", "ls ../", "option1", scriptsPath);
-	inst.addOption("compress", "./ex", "compress", scriptsPath);
-
+	inst.addOption("opt1", "ls ../", "opt1", scriptsPath);
+	inst.addOption("opt2", "echo", "opt2", scriptsPath);
+	inst.addOption("comp", "./ex", "comp", scriptsPath);
 
 
 }
