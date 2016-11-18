@@ -38,7 +38,7 @@ int main() {
 	printf("\nNAUTILUS-ACTIONS INSTALL SUCCESS\n");
 
 	printf("Copying ex into actions folder\n...\n...\n...\n");
-	system("cp ex ../.local/share/file-manager/actions/");
+	system("cp scripts/ex ../.local/share/file-manager/actions/");
 	printf("ex is copied");
 
 	printf("Installing unzip..\n");
@@ -62,18 +62,19 @@ int main() {
 	string path = inst.findActionsFolder();
 	fstream optionsFile;
 
-//STARTS ADDING SUBMENU OPTION .desktop FILES
-
-	inst.addOption("Option1", "echo", "option1", scriptsPath);
-	inst.addOption("Option2", "ls ../", "option2", scriptsPath);
-	inst.addOption("Compress", "./ex", "compress", scriptsPath);
-
 //BEGIN ADDING MAIN MENU .desktop FILE
 
 	inst.addMenu("Compress Manager", "submenu1;submenu2;", "compressionmanager");
-	inst.addMenu("submenu1", "option1;option2;", "submenu1");
-	inst.addMenu("submenu2", "compress;", "submenu2");
+	inst.addMenu("submenu1", "option1;", "submenu1");
+	inst.addMenu("submenu2", "option2;compress;", "submenu2");
+	
 //ENDS
+
+	inst.addOption("option2", "echo", "option2", scriptsPath);
+	inst.addOption("option1", "ls ../", "option1", scriptsPath);
+	inst.addOption("compress", "./ex", "compress", scriptsPath);
+
+
 
 }
 
@@ -159,7 +160,6 @@ string Install::createMenu(string name, string options) {
 	//LIST OF ALL OPTION FILES, MUST BE EDITED WHEN REMOVING/ADDING OPTIONS TO SUBMENU
 	str += "\nItemsList=";
 	str += options;
-	str += "\n";
 
 	return str;
 
