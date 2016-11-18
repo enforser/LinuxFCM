@@ -12,14 +12,14 @@ using namespace std;
 #include "install.h"
 
 int main() {
-	
+
 	//curent working directory path
-	
+
 	char cwdpath[256];
 
 	getcwd(cwdpath, 255);
 	strcat(cwdpath, "/");
-	
+
 	char inspath[256];
 	char scrpath[256];
 
@@ -101,7 +101,6 @@ void Install::addOption(string name, string action, string filename, string path
 /*
 // Create a string for NA to use to create an action
 string Install::createAction() {
-
 	string str = "";
 	str += "[Desktop Entry]\n";
 	str += "Type=Action\n";
@@ -120,9 +119,7 @@ string Install::createAction() {
 	str += "Name[C]=./ex\n";
 	str += "Exec=./ex\n";
 	str += "ExecutionMode=DisplayOutput";
-
 	return str;
-
 }
 */
 string Install::createOption(string name, string action, string path) {
@@ -170,15 +167,14 @@ string Install::createMenu() {
 
 /*
 	findActionsFolder() returns a string with the path to the actions folder.
-
 	MUST CHANGE
 		- Must search or take an input rather than being hardcoded in.
 		- Should it be relative or from root?
 */
 string Install::findActionsFolder() {
-	
+
 	string homeDir = getenv("HOME");
-	
+
 
 	homeDir +=  "/.local/share/file-manager/actions/";
 
