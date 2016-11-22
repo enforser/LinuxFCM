@@ -61,17 +61,26 @@ int main() {
 	fstream optionsFile;
 
 //BEGIN ADDING MAIN MENU .desktop FILE
-
-	inst.addMenu("Compress Manager", "sub2;sub1;", "compressionmanager");
-	inst.addMenu("sub1", "opt2;comp;", "sub2");
-	inst.addMenu("sub2", "opt1;", "sub1");
-
 	
-	inst.addOption("opt1", "ls ../", "opt1", scriptsPath);
-	inst.addOption("opt2", "echo", "opt2", scriptsPath);
-	inst.addOption("comp", "./ex", "comp", scriptsPath);
+	//CREATE THE MENU
+	inst.addMenu("Compress Manager", "pack;unpack;convert;", "compressionmanager");
+	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", "pack");
+	inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
+	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
 
-
+	//CREATE OPTIONS TO FILL MENU
+	inst.addOption("zip",    "./ex zip",  "packzip", scriptsPath);
+	inst.addOption("rar",    "./ex rar",  "packrar", scriptsPath);
+	inst.addOption("tar.gz", "./ex tar",  "packtar", scriptsPath);
+	inst.addOption("7zip",   "./ex 7z",   "pack7z", scriptsPath);
+	inst.addOption("zip",    "./ex",      "unpackzip", scriptsPath);
+	inst.addOption("rar",    "./ex",      "unpackrar", scriptsPath);
+	inst.addOption("tar.gz", "./ex",      "unpacktar", scriptsPath);
+	inst.addOption("7zip",   "./ex",      "unpack7z", scriptsPath);
+	inst.addOption("zip",    "./ex",      "convertzip", scriptsPath);
+	inst.addOption("rar",    "./ex",      "convertrar", scriptsPath);
+	inst.addOption("tar.gz", "./ex",      "converttar", scriptsPath);
+	inst.addOption("7zip",   "./ex",      "convert7z", scriptsPath);
 }
 
 //Takes info needed for new sub-menu option and adds it
