@@ -40,14 +40,13 @@ int main() {
 	system("cp scripts/ex ../.local/share/file-manager/actions/");
 	printf("ex is copied");
 
-	printf("Installing unzip..\n");
+	printf("Installing archive types\n");
+	system("sudo apt-get install zip");
 	system("sudo apt-get install unzip");
-
-	printf("Installing rar..\n");
+	system("sudo apt-get install p7zip-full");
 	system("sudo apt-get install rar");
-
-	printf("Installing unrar\n");
 	system("sudo apt-get install unrar");
+	system("sudo apt-get install tar.gz");
 
 	//Read www.nongnu.org/atool for more info
 	//Will allow us to use the same command structure for different compression methods
@@ -61,17 +60,28 @@ int main() {
 	string path = inst.findActionsFolder();
 	fstream optionsFile;
 
-	inst.addMenu("Compress Manager", "subm2;subm1;", "compressmanager");
-	inst.addMenu("subm1", "compr;opti2;", "subm2");
-	inst.addMenu("subm2", "opti1;", "subm1");
+//BEGIN ADDING MAIN MENU .desktop FILE
+	
+	//CREATE THE MENU
+	inst.addMenu("Compress Manager", "pack;unpack;convert;", "compressionmanager");
+	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", "pack");
+	//inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
+	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
 
-
-	inst.addOption("opti1", "ls ../", "opti1", scriptsPath);
-	inst.addOption("opti2", "echo", "opti2", scriptsPath);
-	inst.addOption("compr", "./ex", "compr", scriptsPath);
-
-
-
+	//CREATE OPTIONS TO FILL MENU
+	inst.addOption("unpack", "./unpack zip", "unpack", scriptsPath);
+	inst.addOption("zip",    "./pack zip",  "packzip", scriptsPath);
+	inst.addOption("rar",    "./pack rar",  "packrar", scriptsPath);
+	inst.addOption("tar.gz", "./pack tar",  "packtar", scriptsPath);
+	inst.addOption("7zip",   "./pack 7z",   "pack7z", scriptsPath);
+	inst.addOption("zip",    "./unpack zip",      "unpackzip", scriptsPath);
+	inst.addOption("rar",    "./unpack rar",      "unpackrar", scriptsPath);
+	inst.addOption("tar.gz", "./unpack tar",      "unpacktar", scriptsPath);
+	inst.addOption("7zip",   "./unpack 7z",      "unpack7z", scriptsPath);
+	inst.addOption("zip",    "./convert zip",      "convertzip", scriptsPath);
+	inst.addOption("rar",    "./convert rar",      "convertrar", scriptsPath);
+	inst.addOption("tar.gz", "./convert tar",      "converttar", scriptsPath);
+	inst.addOption("7zip",   "./convert 7z",      "convert7z", scriptsPath);
 }
 
 //Takes info needed for new sub-menu option and adds it
@@ -137,7 +147,9 @@ string Install::createOption(string name, string action, string path) {
 	str += "\nName[C]=";str += action;
 	str += "\nExec=";str += action;
 	str += " %"; str += "U";
-	str += "\nExecutionMode=DisplayOutput";
+
+	//UNCOMMENT THE FOLLOWING LINE FOR DEBUGGING
+	//str += "\nExecutionMode=DisplayOutput";
 
 	return str;
 }
