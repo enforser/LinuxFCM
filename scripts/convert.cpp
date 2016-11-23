@@ -70,7 +70,10 @@ int main(int argc, char* argv[]) {
 			commandLine += ".gz";
 		}
 		commandLine += " -e ";
-		commandLine += files[0];
+		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
+			commandLine += files[i];
+			commandLine += " ";
+		}
 		
 		
 	}

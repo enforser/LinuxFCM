@@ -6,7 +6,7 @@
 using namespace std;
 
 int main(int argc, char* argv[]) {
-	printf("This is the process saved as pack.\n");
+	printf("This is the process saved as unpack.\n");
 	
 	//if program does not receive enough paramters then it exits
 	if (argc < 3) {
@@ -53,53 +53,30 @@ int main(int argc, char* argv[]) {
 
 	*/
 
-	if (strcmp("zip", archiveType) == 0) {  //zip
+	if (strcmp("zip", archiveType) == 0 || strcmp("rar", archiveType) == 0 ||
+	    strcmp("tar", archiveType) == 0 || strcmp("7z", archiveType) == 0) {  //zip
 		/*
 			-r gets zip to recurse through directories, adding all files
 			-j takes away the directory structure   //NOT A PERMANENT SOLUTION
 		*/
-		commandLine += "zip -r -j ";
+		commandLine += "atool -a ";
+		//commandLine += " -d ";
+		//commandLine += " "; 
 		commandLine += path;
+		//commandLine += " ";
 		commandLine += fileName;
-		commandLine += ".zip ";
+		commandLine += ".";
+		commandLine += archiveType;
+		if (strcmp("tar", archiveType) == 0) {
+			commandLine += ".gz";
+		}
+		commandLine += " ";
 		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
 			commandLine += files[i];
 			commandLine += " ";
 		}
-	}
-	else if (strcmp("rar", archiveType) == 0) {  //rar
-		commandLine += "rar a ";
-		commandLine += path;
-		commandLine += fileName;
-		commandLine += ".rar -r -ep ";
-		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
-			commandLine += files[i];
-			commandLine += " ";
-		}
-	}
-	else if (strcmp("tar", archiveType) == 0) { //tar
-		commandLine += "tar -czf ";
-		commandLine += path;
-		commandLine += fileName;
-		commandLine += ".tar.gz ";
-		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
-			commandLine += files[i];
-			commandLine += " ";
-		}
-	}
-	else if (strcmp("7z", archiveType) == 0) {  //7z
-		commandLine += "7z a ";
-		commandLine += path;
-		commandLine += fileName;
-		commandLine += ".7z ";
-		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
-			commandLine += files[i];
-			commandLine += " ";
-		}
+		
+		
 	}
 	else {
 		printf("SUPPORT FOR REQUESTED ARCHIVE TYPE IS NOT SUPPORTED");
