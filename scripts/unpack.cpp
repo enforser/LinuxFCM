@@ -53,20 +53,38 @@ int main(int argc, char* argv[]) {
 
 	*/
 
-	if (strcmp("zip", archiveType) == 0 || strcmp("rar", archiveType) == 0 ||
-	    strcmp("tar", archiveType) == 0 || strcmp("7z", archiveType) == 0) {  //zip
+	char* check;
+	string sevenzip = "7z";
+	check = (char*) strstr(files[0].c_str(), sevenzip.c_str());
+
+	if (check != NULL) {
+		printf("\n\n\ngot in this one!!!\n\n\n");
+		commandLine += "7z x ";
+		commandLine += files[0];
+		commandLine += " -o";
+		commandLine += path;
+		commandLine += " -aoa -y";
+	}
+	else if (strcmp("zip", archiveType) == 0 || strcmp("rar", archiveType) == 0 ||
+	    strcmp("tar", archiveType) == 0) {  //zip
 		/*
 			-r gets zip to recurse through directories, adding all files
 			-j takes away the directory structure   //NOT A PERMANENT SOLUTION
 		*/
 		commandLine += "atool -X ";
-		//commandLine += " -d ";
 		commandLine += " "; 
 		commandLine += path;
 		commandLine += " ";
 		commandLine += files[0];
 		
 	}
+	/*else if(strcmp("7z", archiveType) == 0) {
+		commandLine += "7z x ";
+		commandLine += files[0];
+		commandLine += " -o";
+		commandLine += path;
+		commandLine += " -aoa -y";
+	}*/
 	else {
 		printf("SUPPORT FOR REQUESTED ARCHIVE TYPE IS NOT SUPPORTED");
 		exit(EXIT_FAILURE);

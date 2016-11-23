@@ -64,10 +64,11 @@ int main() {
 	//CREATE THE MENU
 	inst.addMenu("Compress Manager", "pack;unpack;convert;", "compressionmanager");
 	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", "pack");
-	inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
+//	inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
 	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
 
 	//CREATE OPTIONS TO FILL MENU
+	inst.addOption("unpack", "./unpack zip", "unpack", scriptsPath);
 	inst.addOption("zip",    "./pack zip",  "packzip", scriptsPath);
 	inst.addOption("rar",    "./pack rar",  "packrar", scriptsPath);
 	inst.addOption("tar.gz", "./pack tar",  "packtar", scriptsPath);
@@ -145,7 +146,9 @@ string Install::createOption(string name, string action, string path) {
 	str += "\nName[C]=";str += action;
 	str += "\nExec=";str += action;
 	str += " %"; str += "U";
-	str += "\nExecutionMode=DisplayOutput";
+
+	//UNCOMMENT THE FOLLOWING LINE FOR DEBUGGING
+	//str += "\nExecutionMode=DisplayOutput";
 
 	return str;
 }
