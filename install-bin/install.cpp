@@ -37,17 +37,16 @@ int main() {
 
 	printf("Copying ex into actions folder\n...\n...\n...\n");
 	system("cp scripts/ex ../.local/share/file-manager/actions/");
-	printf("ex is copied");
+	printf("ex is copied");	
 
-	printf("Installing unzip..\n");
+	printf("Installing archive types\n");
+	system("sudo apt-get install zip unzip rar unrar tar.gz p7zip");
 	system("sudo apt-get install unzip");
-
-	printf("Installing rar..\n");
+	system("sudo apt-get install p7zip");
 	system("sudo apt-get install rar");
-
-	printf("Installing unrar\n");
 	system("sudo apt-get install unrar");
-
+	system("sudo apt-get install tar.gz");
+	
 	//Read www.nongnu.org/atool for more info
 	//Will allow us to use the same command structure for different compression methods
 	//Example "apack -e (zip or rar or tar.gz) filename(s)"
