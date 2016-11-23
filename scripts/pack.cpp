@@ -21,11 +21,40 @@ int main(int argc, char* argv[]) {
 	//add file paths from paramters to files array	
 	for (int i = 0; i < numParameters; i++) {
 		files[i] = argv[i+2];
+		files[i] = files[i].substr(7);
+		printf("\n%s", files[i].c_str());
 	}
+	
+	//get the path to be saved at from first parameter
+	int position;
+
+	string path = files[0];
+	position = path.find_last_of("/");
+	path = path.substr(0, position + 1);
+
+	//get the name of the file to be compressed to
+	string fileName = path;
+	position = fileName.find_last_of("/");
+	fileName = fileName.substr(0, position);
+	position = fileName.find_last_of("/");
+	fileName = fileName.substr(position+1);
 
 
+	string commandLine = "";
+	
+	//actions based off the command
 	if (strcmp("zip", archiveType) == 0) {
 		printf("run zip commands\n");
+		commandLine += "zip -r ";
+		commandLine += path;
+		commandLine += fileName;
+		commandLine += ".zip ";
+		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
+			position = files[i].find_last_of("/");
+			commandLine += files[i];
+			commandLine += " ";
+		}
+		system(commandLine.c_str());
 	}
 	else if (strcmp("rar", archiveType) == 0) {
 		printf("run rar commands\n");
