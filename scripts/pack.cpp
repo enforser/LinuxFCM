@@ -45,7 +45,11 @@ int main(int argc, char* argv[]) {
 	//actions based off the command
 	if (strcmp("zip", archiveType) == 0) {
 		printf("run zip commands\n");
-		commandLine += "zip -r ";
+		/*
+			-r gets zip to recurse through directories, adding all files
+			-j takes away the directory structure   //NOT A PERMANENT SOLUTION
+		*/
+		commandLine += "zip -r -j ";
 		commandLine += path;
 		commandLine += fileName;
 		commandLine += ".zip ";
