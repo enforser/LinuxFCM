@@ -42,7 +42,7 @@ int main() {
 	printf("Installing archive types\n");
 	system("sudo apt-get install zip");
 	system("sudo apt-get install unzip");
-	system("sudo apt-get install p7zip");
+	system("sudo apt-get install p7zip-full");
 	system("sudo apt-get install rar");
 	system("sudo apt-get install unrar");
 	system("sudo apt-get install tar.gz");

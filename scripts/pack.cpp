@@ -42,9 +42,18 @@ int main(int argc, char* argv[]) {
 
 	string commandLine = "";
 	
-	//actions based off the command
-	if (strcmp("zip", archiveType) == 0) {
-		printf("run zip commands\n");
+	/*
+
+	actions based off the command
+	
+	Each section of the following else/if statements constructes a string (commandLine)
+	which is meant to be passed to a system command. 
+
+	These are the commands that call the compression tools. 
+
+	*/
+
+	if (strcmp("zip", archiveType) == 0) {  //zip
 		/*
 			-r gets zip to recurse through directories, adding all files
 			-j takes away the directory structure   //NOT A PERMANENT SOLUTION
@@ -58,19 +67,45 @@ int main(int argc, char* argv[]) {
 			commandLine += files[i];
 			commandLine += " ";
 		}
-		system(commandLine.c_str());
 	}
-	else if (strcmp("rar", archiveType) == 0) {
-		printf("run rar commands\n");
+	else if (strcmp("rar", archiveType) == 0) {  //rar
+		commandLine += "rar a ";
+		commandLine += path;
+		commandLine += fileName;
+		commandLine += ".rar -r -ep ";
+		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
+			position = files[i].find_last_of("/");
+			commandLine += files[i];
+			commandLine += " ";
+		}
 	}
-	else if (strcmp("tar", archiveType) == 0) {
-		printf("run tar commands\n");
+	else if (strcmp("tar", archiveType) == 0) { //tar
+		commandLine += "tar -czf ";
+		commandLine += path;
+		commandLine += fileName;
+		commandLine += ".tar.gz ";
+		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
+			position = files[i].find_last_of("/");
+			commandLine += files[i];
+			commandLine += " ";
+		}
 	}
-	else if (strcmp("7z", archiveType) == 0) {
-		printf("run 7z commands\n");
+	else if (strcmp("7z", archiveType) == 0) {  //7z
+		commandLine += "7z a ";
+		commandLine += path;
+		commandLine += fileName;
+		commandLine += ".7z ";
+		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
+			position = files[i].find_last_of("/");
+			commandLine += files[i];
+			commandLine += " ";
+		}
 	}
 	else {
 		printf("SUPPORT FOR REQUESTED ARCHIVE TYPE IS NOT SUPPORTED");
 		exit(EXIT_FAILURE);
-	}	
+	}
+
+	//run the corresponding command on the system
+	system(commandLine.c_str());	
 }
