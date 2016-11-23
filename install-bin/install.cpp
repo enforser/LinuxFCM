@@ -69,18 +69,18 @@ int main() {
 	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
 
 	//CREATE OPTIONS TO FILL MENU
-	inst.addOption("zip",    "./ex zip",  "packzip", scriptsPath);
-	inst.addOption("rar",    "./ex rar",  "packrar", scriptsPath);
-	inst.addOption("tar.gz", "./ex tar",  "packtar", scriptsPath);
-	inst.addOption("7zip",   "./ex 7z",   "pack7z", scriptsPath);
-	inst.addOption("zip",    "./ex",      "unpackzip", scriptsPath);
-	inst.addOption("rar",    "./ex",      "unpackrar", scriptsPath);
-	inst.addOption("tar.gz", "./ex",      "unpacktar", scriptsPath);
-	inst.addOption("7zip",   "./ex",      "unpack7z", scriptsPath);
-	inst.addOption("zip",    "./ex",      "convertzip", scriptsPath);
-	inst.addOption("rar",    "./ex",      "convertrar", scriptsPath);
-	inst.addOption("tar.gz", "./ex",      "converttar", scriptsPath);
-	inst.addOption("7zip",   "./ex",      "convert7z", scriptsPath);
+	inst.addOption("zip",    "./pack zip",  "packzip", scriptsPath);
+	inst.addOption("rar",    "./pack rar",  "packrar", scriptsPath);
+	inst.addOption("tar.gz", "./pack tar",  "packtar", scriptsPath);
+	inst.addOption("7zip",   "./pack 7z",   "pack7z", scriptsPath);
+	inst.addOption("zip",    "./unpack zip",      "unpackzip", scriptsPath);
+	inst.addOption("rar",    "./unpack rar",      "unpackrar", scriptsPath);
+	inst.addOption("tar.gz", "./unpack tar",      "unpacktar", scriptsPath);
+	inst.addOption("7zip",   "./unpack 7z",      "unpack7z", scriptsPath);
+	inst.addOption("zip",    "./compress zip",      "convertzip", scriptsPath);
+	inst.addOption("rar",    "./compress rar",      "convertrar", scriptsPath);
+	inst.addOption("tar.gz", "./compress tar",      "converttar", scriptsPath);
+	inst.addOption("7zip",   "./compress 7z",      "convert7z", scriptsPath);
 }
 
 //Takes info needed for new sub-menu option and adds it
