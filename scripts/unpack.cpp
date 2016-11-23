@@ -66,37 +66,22 @@ int main(int argc, char* argv[]) {
 		
 	}
 	else if (strcmp("rar", archiveType) == 0) {  //rar
-		commandLine += "rar a ";
+		commandLine += "rar x ";
+		commandLine += files[0];
+		commandLine += " -o+  ";
 		commandLine += path;
-		commandLine += fileName;
-		commandLine += ".rar -r -ep ";
-		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
-			commandLine += files[i];
-			commandLine += " ";
-		}
 	}
 	else if (strcmp("tar", archiveType) == 0) { //tar
-		commandLine += "tar -czf ";
+		commandLine += "tar -xzf ";
+		commandLine += files[0];
+		commandLine += " -C ";
 		commandLine += path;
-		commandLine += fileName;
-		commandLine += ".tar.gz ";
-		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
-			commandLine += files[i];
-			commandLine += " ";
-		}
 	}
 	else if (strcmp("7z", archiveType) == 0) {  //7z
-		commandLine += "7z a ";
+		commandLine += "7z e ";
+		commandLine += files[0];
+		commandLine += " -o";
 		commandLine += path;
-		commandLine += fileName;
-		commandLine += ".7z ";
-		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
-			position = files[i].find_last_of("/");
-			commandLine += files[i];
-			commandLine += " ";
-		}
 	}
 	else {
 		printf("SUPPORT FOR REQUESTED ARCHIVE TYPE IS NOT SUPPORTED");
