@@ -6,6 +6,8 @@
 #include <fstream>
 #include <string.h>
 #include <unistd.h>
+#include <stdio.h>
+#include <cstdio>
 
 using namespace std;
 
@@ -61,15 +63,14 @@ int main() {
 	fstream optionsFile;
 
 //BEGIN ADDING MAIN MENU .desktop FILE
-	
+
 	//CREATE THE MENU
 	inst.addMenu("Compress Manager", "pack;unpack;convert;", "compressionmanager");
 	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", "pack");
-	//inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
+	inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
 	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
 
 	//CREATE OPTIONS TO FILL MENU
-	inst.addOption("unpack", "./unpack zip", "unpack", scriptsPath);
 	inst.addOption("zip",    "./pack zip",  "packzip", scriptsPath);
 	inst.addOption("rar",    "./pack rar",  "packrar", scriptsPath);
 	inst.addOption("tar.gz", "./pack tar",  "packtar", scriptsPath);
@@ -82,6 +83,8 @@ int main() {
 	inst.addOption("rar",    "./convert rar",      "convertrar", scriptsPath);
 	inst.addOption("tar.gz", "./convert tar",      "converttar", scriptsPath);
 	inst.addOption("7zip",   "./convert 7z",      "convert7z", scriptsPath);
+
+	inst.fixPreferences();
 }
 
 //Takes info needed for new sub-menu option and adds it
@@ -124,7 +127,27 @@ void Install::addMenu(string name, string options, string filename) {
 	printf(" was created successfully!\n");
 }
 
+//Replaces the NA config file with one that has the settings we need, all other parts of the file are added by NA when needed
+void Install::fixPreferences() {
+	string homeDir = getenv("HOME");
+	ofstream fileout((homeDir + "/.config/nautilus-actions/temp.text").c_str()); //Temporary file
 
+	string strTemp;
+
+	strTemp = "[runtime]\n";
+	fileout << strTemp;
+	strTemp = "items-level-zero-order=compressionmanager;\n";
+	fileout << strTemp;
+	strTemp = "items-create-root-menu=false\n";
+	fileout << strTemp;
+	strTemp = "items-add-about-item=false\n";
+	fileout << strTemp;
+	strTemp = "items-list-order-mode=ManualOrder\n";
+	fileout << strTemp;
+
+	remove((homeDir + "/.config/nautilus-actions/nautilus-actions.conf").c_str()); //Remove the NA config file
+	rename((homeDir + "/.config/nautilus-actions/temp.text").c_str(), (homeDir + "/.config/nautilus-actions/nautilus-actions.conf").c_str()); //Replace it with the temp file
+}
 
 //Creates the string to be outputted to an action .desktop file
 string Install::createOption(string name, string action, string path) {

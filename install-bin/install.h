@@ -1,7 +1,7 @@
 #ifndef INSTALL
-#define INSTALL 
+#define INSTALL
 
-class Install 
+class Install
 {
 	public:
 		void   mainfunc();
@@ -11,5 +11,6 @@ class Install
 		string createOption(string, string, string);
 		void addOption(string, string, string, string);
 		void addMenu(string, string, string);
+		void fixPreferences();
 };
 #endif

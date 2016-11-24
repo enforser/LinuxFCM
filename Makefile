@@ -21,4 +21,4 @@ convert.o: scripts/convert.cpp
 	g++ -c scripts/convert.cpp
 
 clean:
-	rm -f install-bin/install.o scripts/program.o install scripts/ex
+	rm -f install-bin/install.o scripts/*.o install scripts/ex
