@@ -64,32 +64,36 @@ int main() {
 
 //BEGIN ADDING MAIN MENU .desktop FILE
 
+	//string mimeTypes = "MimeTypes=application/x-7z-compressed;application/zip;application/x-rar-compressed;application/x-gzip;";
+	string allTypes = "MimeTypes=*;";
+	string mimeTypes = "MimeTypes=*;";
+
 	//CREATE THE MENU
-	inst.addMenu("Compress Manager", "pack;unpack;convert;", "compressionmanager");
-	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", "pack");
-	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
+	inst.addMenu("Compress Manager", "pack;unpack;convert;", allTypes, "compressionmanager");
+	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", mimeTypes, "pack");
+	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", mimeTypes, "convert");
 
 	//CREATE OPTIONS TO FILL MENU
-	inst.addOption("zip",    "./pack zip",  "packzip", scriptsPath);
-	inst.addOption("rar",    "./pack rar",  "packrar", scriptsPath);
-	inst.addOption("tar.gz", "./pack tar",  "packtar", scriptsPath);
-	inst.addOption("7zip",   "./pack 7z",   "pack7z", scriptsPath);
-	inst.addOption("unpack",    "./unpack zip",      "unpack", scriptsPath);
-	inst.addOption("zip",    "./convert zip",      "convertzip", scriptsPath);
-	inst.addOption("rar",    "./convert rar",      "convertrar", scriptsPath);
-	inst.addOption("tar.gz", "./convert tar",      "converttar", scriptsPath);
-	inst.addOption("7zip",   "./convert 7z",      "convert7z", scriptsPath);
+	inst.addOption("zip",    "./pack zip",    "packzip",    allTypes,  scriptsPath);
+	inst.addOption("rar",    "./pack rar",    "packrar",    allTypes,  scriptsPath);
+	inst.addOption("tar.gz", "./pack tar",    "packtar",    allTypes,  scriptsPath);
+	inst.addOption("7zip",   "./pack 7z",     "pack7z",     allTypes,  scriptsPath);
+	inst.addOption("unpack", "./unpack zip",  "unpack",     mimeTypes, scriptsPath);
+	inst.addOption("zip",    "./convert zip", "convertzip", mimeTypes, scriptsPath);
+	inst.addOption("rar",    "./convert rar", "convertrar", mimeTypes, scriptsPath);
+	inst.addOption("tar.gz", "./convert tar", "converttar", mimeTypes, scriptsPath);
+	inst.addOption("7zip",   "./convert 7z",  "convert7z",  mimeTypes, scriptsPath);
 
 	inst.fixPreferences();
 }
 
 //Takes info needed for new sub-menu option and adds it
 //  Note: Must still add the options "name" to itemList in createMenu()
-void Install::addOption(string name, string action, string filename, string path) {
+void Install::addOption(string name, string action, string filename, string mimeType, string path) {
 	//sets .desktop filename
 	filename = filename + ".desktop";
 	//gets the text to be added to the file
-	string optionText = createOption(name, action, path);
+	string optionText = createOption(name, action, path, mimeType);
 	//gets the fullpath of the file
 	string actionFile = (findActionsFolder() + filename);
 
@@ -105,11 +109,11 @@ void Install::addOption(string name, string action, string filename, string path
 
 //Takes info needed for new sub-menu option and adds it
 //  Note: Must still add the options "name" to itemList in createMenu()
-void Install::addMenu(string name, string options, string filename) {
+void Install::addMenu(string name, string options, string mimeTypes, string filename) {
 	//sets .desktop filename
 	filename = filename + ".desktop";
 	//gets the text to be added to the file
-	string optionText = createMenu(name, options);
+	string optionText = createMenu(name, options, mimeTypes);
 	//gets the fullpath of the file
 	string actionFile = (findActionsFolder() + filename);
 
@@ -146,7 +150,7 @@ void Install::fixPreferences() {
 }
 
 //Creates the string to be outputted to an action .desktop file
-string Install::createOption(string name, string action, string path) {
+string Install::createOption(string name, string action, string path, string mimeTypes) {
 
 	string str = "";
 	str += "[Desktop Entry]\n";
@@ -157,6 +161,8 @@ string Install::createOption(string name, string action, string path) {
 	str += "\nName[en_CA]="; str += name;
 	str += "\nName[en]="; str += name;
 	str += "\nName[C]="; str += name;
+	str += "\n";
+	str += mimeTypes;
 	str += "\nProfiles=profile-zero;\n";
 	str += "\n";
 	str += "[X-Action-Profile profile-zero]\n";
@@ -175,7 +181,7 @@ string Install::createOption(string name, string action, string path) {
 
 
 // Create a string for NA to use to create a menu to store actions
-string Install::createMenu(string name, string options) {
+string Install::createMenu(string name, string options, string mimeTypes) {
 
 	string str = "";
 	str += "[Desktop Entry]\n";
@@ -187,6 +193,8 @@ string Install::createMenu(string name, string options) {
 	//LIST OF ALL OPTION FILES, MUST BE EDITED WHEN REMOVING/ADDING OPTIONS TO SUBMENU
 	str += "\nItemsList=";
 	str += options;
+	str += "\n";
+	str += mimeTypes;
 
 	return str;
 
