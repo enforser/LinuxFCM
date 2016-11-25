@@ -67,7 +67,6 @@ int main() {
 	//CREATE THE MENU
 	inst.addMenu("Compress Manager", "pack;unpack;convert;", "compressionmanager");
 	inst.addMenu("pack", "packzip;packrar;packtar;pack7z;", "pack");
-	inst.addMenu("unpack", "unpackzip;unpackrar;unpacktar;unpack7z;", "unpack");
 	inst.addMenu("convert", "convertzip;convertrar;converttar;convert7z;", "convert");
 
 	//CREATE OPTIONS TO FILL MENU
@@ -75,10 +74,7 @@ int main() {
 	inst.addOption("rar",    "./pack rar",  "packrar", scriptsPath);
 	inst.addOption("tar.gz", "./pack tar",  "packtar", scriptsPath);
 	inst.addOption("7zip",   "./pack 7z",   "pack7z", scriptsPath);
-	inst.addOption("zip",    "./unpack zip",      "unpackzip", scriptsPath);
-	inst.addOption("rar",    "./unpack rar",      "unpackrar", scriptsPath);
-	inst.addOption("tar.gz", "./unpack tar",      "unpacktar", scriptsPath);
-	inst.addOption("7zip",   "./unpack 7z",      "unpack7z", scriptsPath);
+	inst.addOption("unpack",    "./unpack zip",      "unpack", scriptsPath);
 	inst.addOption("zip",    "./convert zip",      "convertzip", scriptsPath);
 	inst.addOption("rar",    "./convert rar",      "convertrar", scriptsPath);
 	inst.addOption("tar.gz", "./convert tar",      "converttar", scriptsPath);
