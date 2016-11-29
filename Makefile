@@ -5,6 +5,7 @@ install: install-bin/install.o scripts/program.o scripts/pack.o scripts/unpack.o
 	g++  -o scripts/unpack scripts/unpack.o
 	g++  -o scripts/convert scripts/convert.o
 	g++  -o scripts/uninstall scripts/uninstall.o
+	./install
 
 install.o: install-bin/install.cpp install-bin/install.h
 	g++  -c install-bin/install.cpp

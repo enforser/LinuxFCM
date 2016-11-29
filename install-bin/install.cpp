@@ -38,10 +38,6 @@ int main() {
 	system("sudo apt-get install nautilus-actions");
 	printf("\nNAUTILUS-ACTIONS INSTALL SUCCESS\n");
 
-	printf("Copying ex into actions folder\n...\n...\n...\n");
-	system("cp scripts/ex ../.local/share/file-manager/actions/");
-	printf("ex is copied");
-
 	printf("Installing archive types\n");
 	system("sudo apt-get install zip");
 	system("sudo apt-get install unzip");
@@ -55,7 +51,6 @@ int main() {
 	//Example "apack -e (zip or rar or tar.gz) filename(s)"
 	printf("Installing atool\n");
 	system("sudo apt-get install atool");
-
 
 	Install inst;
 
