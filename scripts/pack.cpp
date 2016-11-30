@@ -18,19 +18,24 @@ int main(int argc, char* argv[]) {
 	string files[numParameters]; //file paths of files to be manipulated
 	char* archiveType = argv[1]; //type of archive requested by user
 	
+	int pos;
+		
 	//add file paths from paramters to files array	
 	for (int i = 0; i < numParameters; i++) {
 		files[i] = argv[i+2];
 		files[i] = files[i].substr(7);
+		pos = files[i].find_last_of("/");
+		files[i] = files[i].substr(pos+1);
 		printf("\n%s", files[i].c_str());
 	}
 	
 	//get the path to be saved at from first parameter
 	int position;
 
-	string path = files[0];
+	string path = argv[2];
 	position = path.find_last_of("/");
 	path = path.substr(0, position + 1);
+	path = path.substr(7);
 
 	//get the name of the file to be compressed to
 	string fileName = path;
@@ -59,10 +64,13 @@ int main(int argc, char* argv[]) {
 			-r gets zip to recurse through directories, adding all files
 			-j takes away the directory structure   //NOT A PERMANENT SOLUTION
 		*/
+		commandLine += "cd ";
+		commandLine += path;
+		commandLine += " && ";
 		commandLine += "atool -a ";
 		//commandLine += " -d ";
 		//commandLine += " "; 
-		commandLine += path;
+		//commandLine += path;
 		//commandLine += " ";
 		commandLine += fileName;
 		commandLine += ".";
@@ -72,6 +80,7 @@ int main(int argc, char* argv[]) {
 		}
 		commandLine += " ";
 		for (int i = 0; i < sizeof(files)/sizeof(*files); i++) {
+			printf("\npath: %s\n", path.c_str());
 			commandLine += files[i];
 			commandLine += " ";
 		}
