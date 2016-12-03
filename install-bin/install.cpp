@@ -184,12 +184,12 @@ string Install::createMenu(string name, string options, string mimeTypes) {
 	str += "Name[en_CA]="; str += name;
 	str += "\nName[en]="; str += name;
 	str += "\nName[C]="; str += name;
+	//str += "\n";
+	//str += mimeTypes;
 
 	//LIST OF ALL OPTION FILES, MUST BE EDITED WHEN REMOVING/ADDING OPTIONS TO SUBMENU
 	str += "\nItemsList=";
 	str += options;
-	str += "\n";
-	str += mimeTypes;
 
 	return str;
 
