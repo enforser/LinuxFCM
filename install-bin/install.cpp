@@ -36,7 +36,7 @@ int main() {
 	//installs nautilus-actions
 
 	string homeDir = getenv("HOME");
-	system("mkdir -p " + homeDir + "/.local/share/file-manager/actions");
+	system(("mkdir -p " + homeDir + "/.local/share/file-manager/actions").c_str());
 
 	system("sudo apt-get install nautilus-actions");
 	printf("\nNAUTILUS-ACTIONS INSTALL SUCCESS\n");
