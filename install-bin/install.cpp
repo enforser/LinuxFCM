@@ -59,9 +59,9 @@ int main() {
 
 //BEGIN ADDING MAIN MENU .desktop FILE
 
-	//string mimeTypes = "MimeTypes=application/x-7z-compressed;application/zip;application/x-rar-compressed;application/x-gzip;";
+	string mimeTypes = "MimeTypes=application/x-7z-compressed;application/zip;application/x-rar-compressed;application/x-gzip;";
 	string allTypes = "MimeTypes=*;";
-	string mimeTypes = "MimeTypes=*;";
+	//string mimeTypes = "MimeTypes=*;";
 
 	//CREATE THE MENU
 	inst.addMenu("Compress Manager", "pack;unpack;convert;", allTypes, "compressionmanager");
