@@ -15,6 +15,10 @@ LinuxFCM combines compression tools to provide the ability to harness their capa
 
 # Current Run Instructions
 
-The current version features only the installer. To install, download repository and place it into a folder on the Home drive, then run the install executable.
+To install:
 
-Running the install feature will download/install nautilus-actions, which enables options to be added to the context menu. It then creates a new file in "home/.local/share/file-manager/actions/" which contains the .desktop file containing the configurations for the actions button. It also places the "ex" executable, which is the program that will be run by the option in the context menu.
+1. Clone Repository in desired location
+2. Open a Unix terminal in the folder where the repo is cloned
+3. Run the "make" command - This will compile source, and run installer
+
+Note: We have run into issues where the options do not display in the context menu of the file manager. If this happens to you simply restart your system and they should appear. 
