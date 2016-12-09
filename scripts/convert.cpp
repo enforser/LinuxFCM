@@ -7,7 +7,7 @@ using namespace std;
 
 int main(int argc, char* argv[]) {
 	printf("This is the process saved as unpack.\n");
-	
+
 	//if program does not receive enough paramters then it exits
 	if (argc < 3) {
 		printf("Error: MISSING INPUT PARAMETERS\n");
@@ -17,14 +17,14 @@ int main(int argc, char* argv[]) {
 	int numParameters = argc - 2; //number of files to be manipulated
 	string files[numParameters]; //file paths of files to be manipulated
 	char* archiveType = argv[1]; //type of archive requested by user
-	
-	//add file paths from paramters to files array	
+
+	//add file paths from paramters to files array
 	for (int i = 0; i < numParameters; i++) {
 		files[i] = argv[i+2];
 		files[i] = files[i].substr(7);
 		printf("\n%s", files[i].c_str());
 	}
-	
+
 	//get the path to be saved at from first parameter
 	int position;
 
@@ -41,15 +41,15 @@ int main(int argc, char* argv[]) {
 
 
 	string commandLine = "";
-	
+
 	/*
 
 	actions based off the command
-	
-	Each section of the following else/if statements constructes a string (commandLine)
-	which is meant to be passed to a system command. 
 
-	These are the commands that call the compression tools. 
+	Each section of the following else/if statements constructes a string (commandLine)
+	which is meant to be passed to a system command.
+
+	These are the commands that call the compression tools.
 
 	*/
 
@@ -61,7 +61,7 @@ int main(int argc, char* argv[]) {
 		*/
 		commandLine += "atool -r -F";
 		//commandLine += " -d ";
-		//commandLine += " "; 
+		//commandLine += " ";
 		//commandLine += path;
 		//commandLine += " ";
 		commandLine += ".";
@@ -74,8 +74,8 @@ int main(int argc, char* argv[]) {
 			commandLine += files[i];
 			commandLine += " ";
 		}
-		
-		
+
+
 	}
 	else {
 		printf("SUPPORT FOR REQUESTED ARCHIVE TYPE IS NOT SUPPORTED");
@@ -83,5 +83,5 @@ int main(int argc, char* argv[]) {
 	}
 
 	//run the corresponding command on the system
-	system(commandLine.c_str());	
+	system(commandLine.c_str());
 }

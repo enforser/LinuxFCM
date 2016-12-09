@@ -21,4 +21,10 @@ To install:
 2. Open a Unix terminal in the folder where the repo is cloned
 3. Run the "make" command - This will compile source, and run installer
 
-Note: We have run into issues where the options do not display in the context menu of the file manager. If this happens to you simply restart your system and they should appear. 
+Note: We have run into issues where the options do not display in the context menu of the file manager. If this happens to you simply restart your system and they should appear.
+
+# Open Source Code Used
+
+nautilus-actions: Nautilus Actions, GitHub repository, https://github.com/GNOME/nautilus-actions
+
+atool: Oskar Liljeblad, atool, http://www.nongnu.org/atool/
